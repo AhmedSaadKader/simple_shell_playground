@@ -1,0 +1,13 @@
+#ifndef SIMPLE_SHELL
+#define SIMPLE_SHELL
+
+#include <stdio.h>
+#include <stddef.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void print_arg(char **args);
+
+#endif /* SIMPLE_SHELL */
