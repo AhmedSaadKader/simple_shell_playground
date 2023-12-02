@@ -9,14 +9,24 @@
 
 int main(int argc, char **argv)
 {
-	char *buffer;
-	int char_count;
+	char *buffer = NULL;
+	size_t n;
+	ssize_t x;
 
-	buffer = malloc(20);
-	write(STDOUT_FILENO, "$ ", 2);
-	char_count = read(STDIN_FILENO, buffer, 2);
-	write(STDOUT_FILENO, "$ ", 2);
-	write(STDOUT_FILENO, buffer, 20);
+	while (1)
+	{
+		write(STDOUT_FILENO, "$ ", 2);
+		x = getline(&buffer, &n, stdin);
+		if (x == -1)
+		{
+			free(buffer);
+			printf("\n");
+			return (-1);
+		}
+		write(STDOUT_FILENO, "$ ", 2);
+		printf("%s", buffer);
+	}
+
 	free(buffer);
 	return (0);
 }
