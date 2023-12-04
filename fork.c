@@ -26,11 +26,13 @@ int main()
 		}
 		if (pid == 0)
 		{
+			printf("child %d\n", i);
 			execve(argv[0], argv, NULL);
 		}
 		else
 		{
 			wait(&x);
+			printf("father %d\n", i);
 			i++;
 		}
 	}
