@@ -44,7 +44,6 @@ int main(int argc, char **argv)
 		if (pid == 0)
 		{
 			printf("%s", command[count - 1]);
-			printf("%d\n", count);
 			// execve(argv[0], argv, NULL);
 			execve(command[0], command, NULL);
 			perror("execve");
