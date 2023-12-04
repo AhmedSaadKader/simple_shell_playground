@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
 	delim = " ";
 	str = malloc(20);
-	strcpy(str, argv[1]);
+	strcpy(str, "Ahmed Saad");
 	result = strtok(str, delim);
 	while (result != NULL)
 	{

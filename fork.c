@@ -14,7 +14,7 @@ int main()
 	pid_t my_pid;
 	pid_t pid;
 	int i = 0, x;
-	char *argv[] = {"./split_string", "Ahmed Saad", NULL};
+	char *argv[] = {"/bin/ls", "-l", NULL};
 
 	while (i < 5)
 	{
@@ -27,6 +27,8 @@ int main()
 		if (pid == 0)
 		{
 			execve(argv[0], argv, NULL);
+			perror("execve");
+			return (1);
 		}
 		else
 		{
