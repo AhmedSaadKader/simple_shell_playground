@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "main.h"
 #include <unistd.h>
 #include <sys/types.h>
