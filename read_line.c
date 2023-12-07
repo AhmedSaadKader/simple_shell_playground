@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "main.h"
 
 /**
@@ -7,36 +6,18 @@
  * Return: -1 if end of line
 */
 
-int prompt(char *buffer)
+int prompt_x(char **buffer)
 {
 	size_t n;
 	ssize_t x;
 
 	write(STDOUT_FILENO, "$ ", 2);
-		x = getline(&buffer, &n, stdin);
+		x = getline(buffer, &n, stdin);
 		if (x == -1)
 		{
 			free(buffer);
-			printf("\n");
+			*buffer = NULL;
 			return (-1);
 		}
-	return (0);
-}
-
-/**
- * main - reads input line
- *
- * Return: Always 0
-*/
-
-int main(void)
-{
-	char *buffer = NULL;
-	while (1)
-	{
-		prompt(buffer);
-	}
-
-	free(buffer);
 	return (0);
 }

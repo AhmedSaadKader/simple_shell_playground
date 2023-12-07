@@ -16,9 +16,8 @@ int main(int argc, char **argv)
 	size_t n;
 	ssize_t x;
 	int count = 0;
-	char *program;
+	char *delim = "\n";
 	char *command[65];
-	// char *av[] = {"/bin/ls", NULL};
 	pid_t pid;
 
 	while (1)
@@ -32,27 +31,35 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 		// command = malloc(x * sizeof(char));
-		program = strtok(buffer, " ");
-		while (program != NULL)
-		{
-			command[count] = program;
-			count++;
-			program = strtok(NULL, " \n");
-		}
-		command[count] = NULL;
 		pid = fork();
 		if (pid == 0)
 		{
+			command[count] = strtok(buffer, " \n");
+			while (command[count] != NULL)
+			{
+				count++;
+				command[count] = strtok(NULL, " \n");
+			}
+			command[count] = NULL;
+			for (int j = 0; j < count; j++)
+			{
+				command[j] = strdup(command[j]);
+			}
 			printf("%s", command[count - 1]);
-			// execve(argv[0], argv, NULL);
-			execve(command[0], command, NULL);
-			perror("execve");
-			return (1);
+			if (execve(command[0], command, NULL) != -1)
+			{
+				perror("execve");
+				return (1);
+			}
+			for (int j = 0; j < count; j++)
+			{
+				free(command[j]);
+			}
 		}
+
 		else
 		{
-			wait(&count);
-			count = 0;
+			wait(NULL);
 		}
 	}
 

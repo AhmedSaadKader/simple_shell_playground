@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"wait.h": "c"
+		"*.ejs": "html",
+		"wait.h": "c",
+		"stdio.h": "c"
 	}
 }
