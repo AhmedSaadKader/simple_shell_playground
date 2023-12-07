@@ -2,20 +2,17 @@
 #include "main.h"
 
 /**
- * main - reads input line
+ * prompt - displays prompt
  *
- * Return: Always 0
+ * Return: -1 if end of line
 */
 
-int main(int argc, char **argv)
+int prompt(char *buffer)
 {
-	char *buffer = NULL;
 	size_t n;
 	ssize_t x;
 
-	while (1)
-	{
-		write(STDOUT_FILENO, "$ ", 2);
+	write(STDOUT_FILENO, "$ ", 2);
 		x = getline(&buffer, &n, stdin);
 		if (x == -1)
 		{
@@ -23,8 +20,21 @@ int main(int argc, char **argv)
 			printf("\n");
 			return (-1);
 		}
-		write(STDOUT_FILENO, "$ ", 2);
-		printf("%s", buffer);
+	return (0);
+}
+
+/**
+ * main - reads input line
+ *
+ * Return: Always 0
+*/
+
+int main(void)
+{
+	char *buffer = NULL;
+	while (1)
+	{
+		prompt(buffer);
 	}
 
 	free(buffer);

@@ -10,5 +10,6 @@
 #include <string.h>
 
 void print_arg(char **args);
+int prompt(char *buffer);
 
 #endif /* SIMPLE_SHELL */

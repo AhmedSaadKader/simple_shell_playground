@@ -1,6 +1,35 @@
-#include "main.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+
+/**
+ * prompt - displays prompt
+ *
+ * Return: -1 if end of line
+*/
+
+int prompt(char **buffer)
+{
+	size_t n;
+	ssize_t x;
+
+	write(STDOUT_FILENO, "$ ", 2);
+		x = getline(buffer, &n, stdin);
+		if (x == -1)
+		{
+			free(buffer);
+			*buffer = NULL;
+			return (-1);
+		}
+
+	return (0);
+}
 
 /**
  * main - splits strings
@@ -12,21 +41,16 @@ int main(int argc, char **argv)
 {
 	char *delim = " \n";
 	char *av[64];
-	int i = 0;
+	int i = 0, j, l, x;
 	char *buffer = NULL;
-	char *try[] = {"/bin/ls", "-l", NULL};
-	size_t n;
-	ssize_t x;
 	pid_t pid;
+	struct stat st;
 
-	while (1)
+	while (argc)
 	{
-		write(STDOUT_FILENO, "$ ", 2);
-		x = getline(&buffer, &n, stdin);
+		x = prompt(&buffer);
 		if (x == -1)
 		{
-			free(buffer);
-			printf("\n");
 			return (-1);
 		}
 		pid = fork();
@@ -38,13 +62,18 @@ int main(int argc, char **argv)
 		if (pid == 0)
 		{
 			av[0] = strtok(buffer, delim);
+			if (stat(av[0], &st) == -1)
+			{
+				printf("%s: No such file or directory\n", argv[0]);
+				break;
+			}
 			while (av[i] != NULL)
 			{
 				i++;
 				av[i] = strtok(NULL, delim);
 			}
 			av[i] = NULL;
-			for (int j = 0; j < i; j++)
+			for (j = 0; j < i; j++)
 			{
 				av[j] = strdup(av[j]);
 			}
@@ -52,9 +81,9 @@ int main(int argc, char **argv)
 			{
 				perror("execve:");
 			}
-			for (int j = 0; j < i; j++)
+			for (l = 0; l < i; l++)
 			{
-				free(av[j]);
+				free(av[l]);
 			}
 		}
 		else
