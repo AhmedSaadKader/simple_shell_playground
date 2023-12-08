@@ -15,6 +15,6 @@
 
 void print_arg(char **args);
 int prompt_x(char **buffer);
-char **tokenize_string(char *buffer, char *filename, char **av);
+char **tokenize_string(char *buffer, char **av);
 
 #endif /* SIMPLE_SHELL */
