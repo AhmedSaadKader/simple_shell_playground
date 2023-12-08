@@ -1,12 +1,14 @@
 #include "main.h"
 
 /**
- * tokenize_string - tokenize string and store in array
+ * get_command - tokenize string and store in array
+ * @buffer: getline buffer
+ * @av: list of command tokens
  *
  * Return: an array containing a tokenized string
 */
 
-char **tokenize_string(char *buffer, char **av)
+char **get_command(char *buffer, char **av)
 {
 	char *delimiter, *token;
 	int i = 0;
