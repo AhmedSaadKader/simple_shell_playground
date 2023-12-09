@@ -1,14 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "main.h"
 
-typedef struct path_l
-{
-	char *str;
-	struct path_l *next;
-} path_l;
+/**
+ * path_linked - creates a linked list from path
+ *
+ * Return: int
+*/
 
-int main()
+int path_linked(void)
 {
 	path_l *path_head = NULL, *path_node;
 	int i = 0;

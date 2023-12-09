@@ -4,27 +4,26 @@
 
 
 /**
- * main - Prints the environment variable
- * @ac: number of arguments
- * @av: array of arguments
+ * _getenv - Prints the environment variable
+ * @var: variable name
  * @env: array of strings of environment variable
  *
  * Return: Always 0
 */
 
-int main(int ac, char **av, char **env)
+int _getenv(char *var, char **env)
 {
 	int i = 0;
 	char *env_var;
 	char *token;
 
-	if (ac < 2)
+	/*if (ac < 2)
 	{
 		printf("Usage: %s environment variable\n", av[0]);
 		return (1);
-	}
+	}*/
 
-	env_var = av[1];
+	env_var = var;
 	while (env[i])
 	{
 		token = strtok(env[i], "=");
